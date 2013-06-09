@@ -4,6 +4,7 @@ require 'guadaloop/agency'
 require 'guadaloop/client'
 require 'guadaloop/route'
 require 'guadaloop/stop'
+require 'guadaloop/version'
 
 module Guadaloop
   NORTHBOUND = '0'
