@@ -7,10 +7,10 @@ require 'guadaloop/stop'
 require 'guadaloop/version'
 
 module Guadaloop
-  NORTHBOUND = '0'
-  SOUTHBOUND = '1'
-  WESTBOUND = '0'
-  EASTBOUND = '1'
+  Northbound = '0'
+  Southbound = '1'
+  Westbound = '0'
+  Eastbound = '1'
 
   class << self
     def default_agency
