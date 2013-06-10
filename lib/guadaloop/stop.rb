@@ -20,8 +20,10 @@ module Guadaloop
     end
 
     def get_times(route_id, direction = '')
-      r = Client.request "/api/times/#{@agency_id}/#{route_id}/#{@stop_id}/#{direction}"
-      r.map { |time| Time.parse(time) if not time.nil? }
+      uri = "/api/times/#{@agency_id}/#{route_id}/#{@stop_id}/#{direction}"
+      Client.request uri do |time|
+        Time.parse(time) if not time.nil?
+      end
     end
   end
 end

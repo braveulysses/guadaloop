@@ -23,7 +23,7 @@ module Guadaloop
       def request(uri)
         r = Client.get(uri)
         if r.success?
-          return r.parsed_response
+          return r.parsed_response.map { |obj| yield obj }
         else
           raise_error(r)
         end

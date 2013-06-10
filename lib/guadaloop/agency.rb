@@ -1,4 +1,5 @@
 require 'guadaloop/client'
+require 'guadaloop/route'
 
 module Guadaloop
   class Agency < Client
@@ -17,8 +18,9 @@ module Guadaloop
     end
 
     def get_routes()
-      r = Client.request "/api/routes/#{@agency_id}/"
-      r.map { |route| Route::initialize_from_hash route }
+      Client.request "/api/routes/#{@agency_id}/" do |route| 
+        Route::initialize_from_hash route
+      end
     end
   end
 end

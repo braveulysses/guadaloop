@@ -1,4 +1,5 @@
 require 'guadaloop/client'
+require 'guadaloop/stop'
 
 module Guadaloop
   class Route < Client
@@ -20,8 +21,10 @@ module Guadaloop
     end
 
     def get_stops(direction = '')
-      r = Client.request "/api/stops/#{@agency_id}/#{@route_id}/#{direction}"
-      r.map { |stop| Stop::initialize_from_hash stop }
+      uri = "/api/stops/#{@agency_id}/#{@route_id}/#{direction}"
+      Client.request uri do |stop|
+        Stop::initialize_from_hash stop
+      end
     end
   end
 end
