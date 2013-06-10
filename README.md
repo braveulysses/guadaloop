@@ -25,23 +25,28 @@ Before you can use this gem, you need to deploy the Node-GTFS example applicatio
     $ export GTFS_API_HOST='my_node_gtfs_app.herokuapp.com'
 
     > require 'guadaloop'
-    > Guadaloop::get_routes_near(30.267, -97.743, 0.1).each { |route| puts "#{route['route_long_name']}: #{route['route_id']}" }
-    NIGHT OWL RIVERSIDE: 483
-    MANOR/ELGIN EXPRESS: 990
-    NORTH LAMAR/SOUTH CONGRESS VIA METRIC: 2001
-    NORTH LAMAR/SOUTH CONGRESS VIA LAMAR: 1001
-    BURNET/MANCHACA: 3
-    DUVAL / DOVE SPRINGS: 7
-    SOUTH 1ST/RED RIVER: 10
-    CESAR CHAVEZ: 17
-    MANOR RD/RIVERSIDE: 20
-    CHICON: 22
-    AIRPORT FLYER: 100
-    N LAMAR/S CONGRESS LTD: 101
-    WOODROW/SOUTH 5TH: 5
-    BARTON CREEK SQ : 30
-    METRIC FLYER: 142
-    NIGHT OWL SOUTH CONGRESS: 486
+    > Guadaloop::get_routes_near(30.267, -97.743, 0.1).each { |r| puts "#{r.route_id}: #{r.route_short_name} #{r.route_long_name}" }
+    483: 483 NIGHT OWL RIVERSIDE
+    486: 486 NIGHT OWL SOUTH CONGRESS
+    990: 990 MANOR/ELGIN EXPRESS
+    3: 3 BURNET/MANCHACA
+    10: 10 SOUTH 1ST/RED RIVER
+    5: 5 WOODROW/SOUTH 5TH
+    4: 4 MONTOPOLIS 
+    21: 21 EXPOSITION
+    17: 17 CESAR CHAVEZ
+    7: 7 DUVAL / DOVE SPRINGS
+    20: 20 MANOR RD/RIVERSIDE
+    100: 100 AIRPORT FLYER
+    30: 30 BARTON CREEK SQ 
+    101: 101 N LAMAR/S CONGRESS LTD
+    22: 22 CHICON
+    122: 122 FOUR POINTS LIMITED
+    127: 127 DOVE SPRINGS FLYER
+    142: 142 METRIC FLYER
+    1001: 1L NORTH LAMAR/SOUTH CONGRESS VIA LAMAR
+    2001: 1M NORTH LAMAR/SOUTH CONGRESS VIA METRIC
+    ...
 
 ## Contributing
 
