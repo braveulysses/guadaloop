@@ -34,10 +34,12 @@ module Guadaloop
       stop.get_times(route_id)
     end
 
-    def get_next(route_id, stop_id)
+    def get_next(route_id, stop_id, max=1)
       stop = Stop::new(Guadaloop::default_agency, stop_id)
-      stop.get_times(route_id)
-      # TODO: Filter out all but next time
+      times = stop.get_times(route_id).select do |time|
+        time if time > Time.now
+      end
+      times.slice(0, max)
     end
 
     def list_agencies
