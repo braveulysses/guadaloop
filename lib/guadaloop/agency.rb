@@ -17,7 +17,8 @@ module Guadaloop
     end
 
     def get_routes()
-      Client.request "/api/routes/#{@agency_id}/"
+      r = Client.request "/api/routes/#{@agency_id}/"
+      r.map { |route| Route::initialize_from_hash route }
     end
   end
 end

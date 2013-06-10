@@ -20,7 +20,8 @@ module Guadaloop
     end
 
     def get_stops(direction = '')
-      Client.request "/api/stops/#{@agency_id}/#{@route_id}/#{direction}"
+      r = Client.request "/api/stops/#{@agency_id}/#{@route_id}/#{direction}"
+      r.map { |stop| Stop::initialize_from_hash stop }
     end
   end
 end
