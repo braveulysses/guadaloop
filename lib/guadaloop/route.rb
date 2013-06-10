@@ -1,5 +1,3 @@
-require 'httparty'
-
 require 'guadaloop/client'
 
 module Guadaloop
@@ -8,7 +6,6 @@ module Guadaloop
     attr_accessor :route_id
 
     def initialize(agency_id, route_id)
-      super()
       @agency_id = agency_id
       @route_id = route_id
     end

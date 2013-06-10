@@ -1,5 +1,3 @@
-require 'httparty'
-
 require 'guadaloop/client'
 
 module Guadaloop
