@@ -6,6 +6,8 @@ module Guadaloop
     include HTTParty
     format :json
 
+    attr_accessor :raw
+
     class << self
       def api_host
         ENV['GTFS_API_HOST']
@@ -31,6 +33,14 @@ module Guadaloop
         # TODO: Include the original exception
         error = "HTTP #{response.code} received"
         raise Guadaloop::Error, error
+      end
+    end
+
+    def method_missing(key)
+      if @raw.key? key.to_s
+        @raw[key.to_s]
+      else
+        nil
       end
     end
 
