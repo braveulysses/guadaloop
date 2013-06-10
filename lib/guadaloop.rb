@@ -14,7 +14,7 @@ module Guadaloop
 
   class << self
     def default_agency
-      ENV['GTFS_DEFAULT_AGENCY'] || 'capital-metro'
+      ENV['GTFS_AGENCY'] || 'capital-metro'
     end
 
     def get_routes
