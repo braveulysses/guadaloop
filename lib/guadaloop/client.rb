@@ -7,8 +7,15 @@ module Guadaloop
     format :json
 
     class << self
-      def default_api_host
+      def api_host
         ENV['GTFS_API_HOST']
+      end
+
+      def initialize_api_host
+        if Client::api_host.nil?
+          raise InitializationError, "GTFS_API_HOST must be set"
+        end
+        Client::base_uri "http://#{Client::api_host}"
       end
 
       def request(uri)
@@ -27,11 +34,7 @@ module Guadaloop
       end
     end
 
-    def initialize
-      if Client::default_api_host.nil?
-        raise InitializationError, "GTFS_API_HOST must be set"
-      end
-      Client::base_uri "http://#{Client::default_api_host}"
-    end
+    initialize_api_host
+
   end
 end
