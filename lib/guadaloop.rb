@@ -27,12 +27,12 @@ module Guadaloop
       route.get_stops(direction)
     end
 
-    def get_times(route_id, stop_id, direction)
+    def get_times(route_id, stop_id)
       stop = Stop::new(Guadaloop::default_agency, stop_id)
       stop.get_times(route_id)
     end
 
-    def get_next(route_id, stop_id, direction)
+    def get_next(route_id, stop_id)
       stop = Stop::new(Guadaloop::default_agency, stop_id)
       stop.get_times(route_id)
       # TODO: Filter out all but next time
