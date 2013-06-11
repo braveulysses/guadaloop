@@ -22,5 +22,11 @@ module Guadaloop
         Route::initialize_from_hash route
       end
     end
+
+    def get_route(route_id)
+      Client.request "/api/routes/#{@agency_id}/" do |route| 
+        return Route::initialize_from_hash(route) if route['route_id'] == route_id.to_s
+      end
+    end
   end
 end

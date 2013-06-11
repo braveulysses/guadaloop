@@ -26,5 +26,11 @@ module Guadaloop
         Stop::initialize_from_hash stop
       end
     end
+
+    def get_stop(stop_id)
+      Client.request "/api/stops/#{@agency_id}/#{@route_id}" do |stop| 
+        return Stop::initialize_from_hash(stop) if stop['stop_id'] == stop_id.to_s
+      end
+    end
   end
 end

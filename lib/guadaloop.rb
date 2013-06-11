@@ -14,6 +14,8 @@ module Guadaloop
   Westbound = '0'
   Eastbound = '1'
 
+  TIME_FORMAT = '%I:%M:%S %p'
+
   class << self
     def default_agency
       ENV['GTFS_AGENCY'] || 'capital-metro'
@@ -22,6 +24,11 @@ module Guadaloop
     def get_routes
       agency = Agency::new(Guadaloop::default_agency)
       agency.get_routes()
+    end
+
+    def get_route(route_id)
+      agency = Agency::new(Guadaloop::default_agency)
+      agency.get_route(route_id)
     end
 
     def get_stops(route_id, direction)
@@ -86,8 +93,9 @@ module Guadaloop
     desc "list-bus-stops ADDRESS", "Lists nearby bus stops"
     def list_bus_stops(address)
       latitude, longitude = CLI::get_coordinates(address)
-      stops = Guadaloop::get_stops_near(latitude, longitude, 0.5)
-      stops.each do |stop|
+      nearby_stops = Guadaloop::get_stops_near(latitude, longitude, 0.5)
+      bus_stops = nearby_stops.select { |stop| stop.zone_id.empty? }
+      bus_stops.each do |stop|
         print_wrapped "#{stop.stop_id}: #{stop.stop_name}: #{stop.stop_desc}"
       end
     end
@@ -114,8 +122,10 @@ module Guadaloop
     desc "list-times ROUTE_ID STOP_ID", "Lists arrival times for a stop"
     def list_times(route_id, stop_id)
       times = Guadaloop::get_times(route_id, stop_id)
-      # TODO: Unroll the array of times
-      say times, :magenta
+      route = Guadaloop::get_route(route_id)
+      stop = route.get_stop(stop_id)
+      say "Route #{route.route_short_name} #{route.route_long_name} stops at #{stop.stop_name} at the following times:", :magenta
+      times.each { |t| say t.strftime(TIME_FORMAT), :cyan }
     end
 
     desc "list-nearby-times ADDRESS DIRECTION RADIUS", "Lists nearby routes and stops"
