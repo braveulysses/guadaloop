@@ -138,14 +138,25 @@ module Guadaloop
       end
     end
 
-    desc "next-bus DIRECTION STOP_ID", "Displays the next bus arrival time"
-    def next_bus(direction, stop_id)
-      say "this does nothing", :green
+    desc "next-bus ROUTE_ID STOP_ID", "Displays the next bus arrival time"
+    def next_bus(route_id, stop_id)
+      next_departures = Guadaloop::get_next(route_id, stop_id)
+      if not next_departures.empty?
+        say "The next bus leaves at #{next_departures[0].strftime(TIME_FORMAT)}.", :green
+      else
+        say "There are no more buses today.", :red
+      end
     end
 
-    desc "next-train DIRECTION STOP_ID", "Displays the next train arrival time"
-    def next_train(direction, stop_id)
-      say "this does nothing", :green
+    desc "next-train STOP_ID", "Displays the next train arrival time"
+    def next_train(stop_id)
+      # Austin has one train, and it's the 550 Metro Rail Red Line
+      next_departures = Guadaloop::get_next(550, stop_id)
+      if not next_departures.empty?
+        say "The next train leaves at #{next_departures[0].strftime(TIME_FORMAT)}.", :green
+      else
+        say "There are no more trains today.", :red
+      end
     end
   end
 end
