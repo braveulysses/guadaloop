@@ -22,7 +22,7 @@ module Guadaloop
 
       def request(uri)
         r = Client.get(uri)
-        if r.success?
+        if r.success? and r.parsed_response.is_a? Array
           return r.parsed_response.map { |obj| yield obj }
         else
           raise_error(r)
@@ -32,6 +32,9 @@ module Guadaloop
       def raise_error(response)
         # TODO: Include the original exception
         error = "HTTP #{response.code} received"
+        if response.parsed_response.has_key? "error"
+          error += " with message '#{response.parsed_response['error']}'"
+        end
         raise Guadaloop::Error, error
       end
     end
