@@ -1,5 +1,10 @@
 #!/usr/bin/env ruby
 
+if ENV['GTFS_API_HOST'].nil?
+  puts "The GTFS_API_HOST environment variable must be set before running this program."
+  exit(1)
+end
+
 require 'guadaloop'
 
 Guadaloop::CLI.start(ARGV)
