@@ -28,7 +28,7 @@ module Guadaloop
           # Cap Metro GTFS data may include unparseable times like "24:23"
           m = time.match /(\d{2}):(\d{2}):(\d{2})/
           if m[1] == "24"
-            Time.parse("01:#{m[2]}:#{m[3]}") + (24 * 60 * 60)
+            Time.parse("00:#{m[2]}:#{m[3]}") + (24 * 60 * 60)
           end
         end
       end
