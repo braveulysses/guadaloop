@@ -44,7 +44,7 @@ module Guadaloop
     def get_next(route_id, stop_id, max=1)
       stop = Stop::new(Guadaloop::default_agency, stop_id)
       times = stop.get_times(route_id).select do |time|
-        time if time > Time.now
+        time if not time.nil? and time > Time.now
       end
       times.slice(0, max)
     end

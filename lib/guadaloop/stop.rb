@@ -22,7 +22,15 @@ module Guadaloop
     def get_times(route_id, direction = '')
       uri = "/api/times/#{@agency_id}/#{route_id}/#{@stop_id}/#{direction}"
       Client.request uri do |time|
-        Time.parse(time) if not time.nil?
+        begin
+          Time.parse(time) if not time.nil?
+        rescue ArgumentError
+          # Cap Metro GTFS data may include unparseable times like "24:23"
+          m = time.match /(\d{2}):(\d{2}):(\d{2})/
+          if m[1] == "24"
+            Time.parse("01:#{m[2]}:#{m[3]}") + (24 * 60 * 60)
+          end
+        end
       end
     end
   end
